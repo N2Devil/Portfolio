@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lucas Schalz — Game Developer/Staatlich geprüfter Informatiker Multimedia(</title>
+<title>Lucas Schalz — Game Developer</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,32 +11,20 @@
 
 <style>
   :root{
-    --bg:#0d0d10;
-    --bg-2:#141419;
-    --surface:#16161c;
-    --surface-2:#1c1c24;
-    --line:#2a2a34;
-    --text:#ecebe6;
-    --muted:#8d8a82;
-    --accent:#ffb02e;
-    --accent-dim:#c9871f;
-    --radius:14px;
-    --maxw:1080px;
+    --bg:#0d0d10; --bg-2:#141419; --surface:#16161c; --surface-2:#1c1c24;
+    --line:#2a2a34; --text:#ecebe6; --muted:#8d8a82;
+    --accent:#ffb02e; --accent-dim:#c9871f; --radius:14px; --maxw:1080px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:"Hanken Grotesk",sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
+    background:var(--bg);color:var(--text);font-family:"Hanken Grotesk",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;
     background-image:
       radial-gradient(900px 500px at 80% -10%, rgba(255,176,46,.10), transparent 60%),
       radial-gradient(700px 600px at -10% 10%, rgba(255,176,46,.05), transparent 55%);
     background-attachment:fixed;
   }
-  /* faint grid texture */
   body::before{
     content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4;
     background-image:
@@ -46,72 +34,66 @@
   }
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
 
+  /* ---------- LANGUAGE TOGGLE ---------- */
+  .langbar{
+    position:fixed;top:18px;right:18px;z-index:50;display:flex;gap:2px;
+    background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:3px;
+    font-family:"JetBrains Mono",monospace;
+  }
+  .lang-btn{
+    cursor:pointer;border:0;background:transparent;color:var(--muted);
+    font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.05em;
+    padding:6px 11px;border-radius:6px;transition:.15s ease;
+  }
+  .lang-btn:hover{color:var(--text)}
+  .lang-btn.active{background:var(--accent);color:#1a1205}
+
   /* ---------- HERO ---------- */
   header{padding:96px 0 64px}
-  .kicker{
-    font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.18em;
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.18em;
     text-transform:uppercase;color:var(--accent);margin-bottom:20px;
-    opacity:0;animation:rise .7s ease forwards .05s;
-  }
-  h1{
-    font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    opacity:0;animation:rise .7s ease forwards .05s}
+  h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
     font-size:clamp(2.6rem,7vw,5rem);line-height:.98;letter-spacing:-.02em;
-    opacity:0;animation:rise .7s ease forwards .12s;
-  }
+    opacity:0;animation:rise .7s ease forwards .12s}
   h1 .you{color:var(--accent)}
-  .lede{
-    max-width:600px;margin-top:22px;font-size:1.12rem;color:#cdcbc4;
-    opacity:0;animation:rise .7s ease forwards .2s;
-  }
-  .meta{
-    display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;
-    opacity:0;animation:rise .7s ease forwards .28s;
-  }
-  .btn{
-    display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  .lede{max-width:600px;margin-top:22px;font-size:1.12rem;color:#cdcbc4;
+    opacity:0;animation:rise .7s ease forwards .2s}
+  .meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;
+    opacity:0;animation:rise .7s ease forwards .28s}
+  .btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;
     font-family:"JetBrains Mono",monospace;font-size:.84rem;font-weight:500;
     padding:11px 18px;border-radius:10px;border:1px solid var(--line);
-    color:var(--text);background:var(--surface);transition:.18s ease;
-  }
+    color:var(--text);background:var(--surface);transition:.18s ease}
   .btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
   .btn.solid{background:var(--accent);color:#1a1205;border-color:var(--accent);font-weight:700}
   .btn.solid:hover{background:#ffc25a;color:#1a1205}
 
   /* ---------- SECTION TITLE ---------- */
   .sec-head{display:flex;align-items:baseline;gap:14px;margin:18px 0 30px}
-  .sec-head h2{
-    font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
-    font-size:1.7rem;letter-spacing:-.01em;
-  }
+  .sec-head h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    font-size:1.7rem;letter-spacing:-.01em}
   .sec-head .idx{font-family:"JetBrains Mono",monospace;color:var(--accent);font-size:.9rem}
   .rule{flex:1;height:1px;background:var(--line)}
 
-  /* ---------- PROJECTS ---------- */
+  /* ---------- GAME PROJECTS ---------- */
   .projects{display:flex;flex-direction:column;gap:34px;padding-bottom:20px}
-  .card{
-    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  .card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
     background:linear-gradient(180deg,var(--surface),var(--bg-2));
-    display:grid;grid-template-columns:1.15fr 1fr;
-    transition:.22s ease;
-  }
+    display:grid;grid-template-columns:1.15fr 1fr;transition:.22s ease}
   .card:hover{border-color:#3a3a46;transform:translateY(-3px);
     box-shadow:0 22px 50px -28px rgba(0,0,0,.8)}
   .media{position:relative;background:#000;min-height:280px;aspect-ratio:16/10}
   .media video,.media img{width:100%;height:100%;object-fit:cover;display:block}
-  /* placeholder shown until a real file exists */
-  .media .ph{
-    position:absolute;inset:0;display:flex;flex-direction:column;
+  .media .ph{position:absolute;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;gap:10px;text-align:center;
     background:repeating-linear-gradient(45deg,#101015,#101015 12px,#15151b 12px,#15151b 24px);
-    color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.8rem;padding:20px;
-  }
+    color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.8rem;padding:20px}
   .media .ph b{color:var(--accent);font-weight:700}
   .card-body{padding:30px 30px 32px;display:flex;flex-direction:column}
-  .status{
-    align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:.68rem;
+  .status{align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:.68rem;
     letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
-    border:1px solid var(--accent-dim);border-radius:30px;padding:4px 11px;margin-bottom:16px;
-  }
+    border:1px solid var(--accent-dim);border-radius:30px;padding:4px 11px;margin-bottom:16px}
   .card-body h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
     font-size:1.55rem;letter-spacing:-.01em}
   .genre{color:var(--muted);font-size:.95rem;margin:3px 0 16px}
@@ -120,7 +102,6 @@
   .tag{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--accent);
     background:rgba(255,176,46,.08);border:1px solid rgba(255,176,46,.22);
     border-radius:7px;padding:5px 10px}
-  /* portrait (mobile) clips sit centered on black instead of cropping */
   .media.portrait video,.media.portrait img{object-fit:contain;background:#000}
 
   /* ---------- SECONDARY (NON-GAME) PROJECTS ---------- */
@@ -165,67 +146,73 @@
     .card{grid-template-columns:1fr}
     header{padding:64px 0 44px}
     .card-body{padding:24px}
+    .langbar{top:12px;right:12px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
 <body>
+
+<!-- ================= LANGUAGE TOGGLE ================= -->
+<div class="langbar">
+  <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
+  <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+</div>
+
 <div class="wrap">
 
   <!-- ================= HERO ================= -->
   <header>
-    <div class="kicker">Game Developer · Godot &amp; C#</div>
+    <div class="kicker" data-en="Game Developer · Godot &amp; C#">Game Developer · Godot &amp; C#</div>
     <h1>Lucas <span class="you">Schalz</span></h1>
-    <p class="lede">
+    <p class="lede" data-en="State-certified IT specialist with a focus on game development. I build games from the first mechanic to multiplayer netcode — independently, pragmatically, and with an eye for game feel.">
       Staatlich geprüfter Informatiker mit Schwerpunkt Gamedevelopment.
       Ich baue Spiele von der ersten Mechanik bis zum Multiplayer-Netcode –
       eigenständig, pragmatisch und mit Fokus auf das Spielgefühl.
     </p>
     <div class="meta">
-      <!-- TODO: GitHub-Link + E-Mail eintragen -->
-      <a class="btn solid" href="#projekte">Projekte ansehen ↓</a>
-      <a class="btn" href="https://github.com/DEINNAME" target="_blank" rel="noopener">GitHub ↗</a>
+      <!-- TODO: DEINNAME ist schon N2Devil -->
+      <a class="btn solid" href="#projekte" data-en="View projects ↓">Projekte ansehen ↓</a>
+      <a class="btn" href="https://github.com/N2Devil" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="mailto:luc.schalz@gmail.com">luc.schalz@gmail.com</a>
     </div>
   </header>
 
-  <!-- ================= PROJECTS ================= -->
+  <!-- ================= GAMES ================= -->
   <section id="projekte">
     <div class="sec-head">
       <span class="idx">01</span>
-      <h2>Spiele</h2>
+      <h2 data-en="Games">Spiele</h2>
       <span class="rule"></span>
     </div>
 
     <div class="projects">
 
-      <!-- ---------- PROJEKT 1: RESET ARENA ---------- -->
+      <!-- ---------- RESET ARENA ---------- -->
       <article class="card">
         <div class="media">
-          <!-- Sobald media/reset-arena.mp4 existiert, spielt das Video.
-               Den Platzhalter (<div class="ph">) kannst du dann löschen. -->
           <video autoplay muted loop playsinline poster="media/reset-arena.png">
             <source src="media/reset-arena.mp4" type="video/mp4">
           </video>
           <div class="ph">Clip hier einsetzen<br><b>media/reset-arena.mp4</b></div>
         </div>
         <div class="card-body">
-          <span class="status">In Entwicklung</span>
+          <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Reset Arena</h3>
-          <div class="genre">Top-Down-Action · Hotline-Miami-inspiriert</div>
-          <p>
+          <div class="genre" data-en="Top-down action · Hotline Miami–inspired">Top-Down-Action · Hotline-Miami-inspiriert</div>
+          <p data-en="Fast, hard-hitting 2D combat with immediate hit feedback. Focused on game feel: controls, enemy AI and polish so every hit lands.">
             Schnelles, hartes 2D-Gefecht mit unmittelbarem Hit-Feedback.
             Fokus auf Spielgefühl: Steuerung, Gegner-KI und Polish, damit
-            jeder Treffer sitzt. <!-- TODO: anpassen, falls du was Konkreteres nennen willst -->
+            jeder Treffer sitzt.
           </p>
           <div class="tags">
             <span class="tag">Godot</span><span class="tag">GDScript</span>
-            <span class="tag">Gameplay</span><span class="tag">Gegner-KI</span>
+            <span class="tag">Gameplay</span><span class="tag" data-en="Enemy AI">Gegner-KI</span>
           </div>
         </div>
       </article>
 
-      <!-- ---------- PROJEKT 2: CELL SHOT ---------- -->
+      <!-- ---------- CELL SHOT ---------- -->
       <article class="card">
         <div class="media">
           <video autoplay muted loop playsinline poster="media/cell-shot.png">
@@ -234,10 +221,10 @@
           <div class="ph">Clip hier einsetzen<br><b>media/cell-shot.mp4</b></div>
         </div>
         <div class="card-body">
-          <span class="status">In Entwicklung</span>
+          <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Cell Shot</h3>
-          <div class="genre">Online-Multiplayer · Epic Online Services</div>
-          <p>
+          <div class="genre" data-en="Online multiplayer · Epic Online Services">Online-Multiplayer · Epic Online Services</div>
+          <p data-en="Multiplayer project centered on networking: sessions, matchmaking and client synchronization via the Epic Online Services integration. My technically most demanding project.">
             Multiplayer-Projekt mit Fokus auf Netzwerktechnik: Sessions,
             Matchmaking und Client-Synchronisation über die Integration der
             Epic Online Services. Mein technisch anspruchsvollstes Projekt.
@@ -249,7 +236,7 @@
         </div>
       </article>
 
-      <!-- ---------- PROJEKT 3: ASTRO BASE ---------- -->
+      <!-- ---------- ASTRO BASE ---------- -->
       <article class="card">
         <div class="media">
           <video autoplay muted loop playsinline poster="media/astro-base.png">
@@ -258,22 +245,22 @@
           <div class="ph">Clip hier einsetzen<br><b>media/astro-base.mp4</b></div>
         </div>
         <div class="card-body">
-          <span class="status">In Entwicklung</span>
+          <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Astro Base</h3>
-          <div class="genre">2D-Isometrischer Base-Builder</div>
-          <p>
+          <div class="genre" data-en="2D isometric base builder">2D-Isometrischer Base-Builder</div>
+          <p data-en="Building game with isometric rendering, resource economy and user-centered UI. An exercise in system design and interlocking multiple game mechanics.">
             Aufbau-Spiel mit isometrischem Rendering, Ressourcen-Wirtschaft
             und nutzerzentrierter UI. Übung in Systemdesign und im Verzahnen
             mehrerer ineinandergreifender Spielmechaniken.
           </p>
           <div class="tags">
-            <span class="tag">Godot</span><span class="tag">Systemdesign</span>
-            <span class="tag">UI/UX</span><span class="tag">Iso-Rendering</span>
+            <span class="tag">Godot</span><span class="tag" data-en="System Design">Systemdesign</span>
+            <span class="tag">UI/UX</span><span class="tag" data-en="Iso Rendering">Iso-Rendering</span>
           </div>
         </div>
       </article>
 
-      <!-- ---------- PROJEKT 4: STICKY CLIMBER ---------- -->
+      <!-- ---------- STICKY CLIMBER ---------- -->
       <article class="card">
         <div class="media portrait">
           <video autoplay muted loop playsinline poster="media/sticky-climber.png">
@@ -282,14 +269,14 @@
           <div class="ph">Clip hier einsetzen<br><b>media/sticky-climber.mp4</b></div>
         </div>
         <div class="card-body">
-          <span class="status">In Entwicklung</span>
+          <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Sticky Climber</h3>
-          <div class="genre">Mobile-Game · Arcade</div>
-          <p>
+          <div class="genre" data-en="Mobile game · Arcade">Mobile-Game · Arcade</div>
+          <p data-en="Mobile arcade game focused on tight touch controls and short, challenging runs. Development for another target platform — from input design to on-device performance.">
             Mobiles Arcade-Spiel mit Fokus auf griffige Touch-Steuerung und
             kurze, fordernde Runs. Entwicklung für ein weiteres Zielsystem –
             vom Eingabekonzept bis zur Performance auf dem Gerät.
-            <!-- TODO: Engine prüfen (Godot?) und Beschreibung anpassen -->
+            <!-- TODO: Engine pruefen (Godot?) -->
           </p>
           <div class="tags">
             <span class="tag">Godot</span><span class="tag">Mobile</span>
@@ -301,11 +288,11 @@
     </div>
   </section>
 
-  <!-- ================= WEITERE PROJEKTE ================= -->
+  <!-- ================= OTHER PROJECTS ================= -->
   <section id="weiteres">
     <div class="sec-head">
       <span class="idx">02</span>
-      <h2>Weitere Projekte</h2>
+      <h2 data-en="Other Projects">Weitere Projekte</h2>
       <span class="rule"></span>
     </div>
 
@@ -318,42 +305,41 @@
           <div class="ph">Screenshot einsetzen<br><b>media/emerald.png</b></div>
         </div>
         <div class="alt-body">
-          <span class="status">Eigenprojekt</span>
+          <span class="status" data-en="Personal project">Eigenprojekt</span>
           <h3>Emerald</h3>
-          <div class="genre">Desktop-Notiz-App · Electron</div>
-          <p>
+          <div class="genre" data-en="Desktop note app · Electron">Desktop-Notiz-App · Electron</div>
+          <p data-en="Note-taking and knowledge app in the style of Obsidian, built with Electron. Custom editor, local data storage and a thoughtful UI — a complete, independently built desktop tool.">
             Notiz- und Wissens-App im Stil von Obsidian, gebaut mit Electron.
             Eigener Editor, lokale Datenhaltung und durchdachte UI – ein
             vollständiges, eigenständig umgesetztes Desktop-Tool.
           </p>
           <div class="tags">
             <span class="tag">Electron</span><span class="tag">JavaScript</span>
-            <span class="tag">Desktop-App</span><span class="tag">UI/UX</span>
+            <span class="tag" data-en="Desktop App">Desktop-App</span><span class="tag">UI/UX</span>
           </div>
         </div>
       </article>
 
-      <!-- Platz für ein zweites Nicht-Spiel-Projekt, falls gewünscht. -->
-
       <!-- ---------- DISKDRIVESEARCH ---------- -->
       <article class="alt">
         <div class="media">
-          <!-- Screenshot/Terminal-Ausgabe einsetzen: <img src="media/diskdrivesearch.png" alt="DiskDriveSearch"> -->
+          <!-- Screenshot einsetzen: <img src="media/diskdrivesearch.png" alt="DiskDriveSearch"> -->
           <div class="ph">Screenshot einsetzen<br><b>media/diskdrivesearch.png</b></div>
         </div>
         <div class="alt-body">
-          <span class="status">Lernprojekt</span>
+          <span class="status" data-en="Personal project">Eigenprojekt</span>
           <h3>DiskDriveSearch</h3>
-          <div class="genre">Datei-Suchtool · Python</div>
-          <p>
-            Kommandozeilen-Tool zum Durchsuchen ganzer Laufwerke. Ein frühes
-            Lernprojekt – im Rückblick würde ich die Suche cachen statt mehrfach
-            zu durchlaufen und für die Performance eine systemnähere Sprache wählen.
-            <!-- TODO: Beschreibung nach Geschmack anpassen -->
+          <div class="genre" data-en="Disk space analyzer · Python">Disk Space Analyzer · Python</div>
+          <p data-en="Desktop tool with a graphical interface for analyzing disk usage — scan drives, sort by size, search. Honest note: the scan logic passes over the data multiple times; in hindsight I'd cache it and pick a lower-level language for performance.">
+            Desktop-Tool mit grafischer Oberfläche zur Analyse der
+            Festplattenbelegung – Laufwerke scannen, nach Größe sortieren,
+            durchsuchen. Ehrliche Notiz: Die Scan-Logik durchläuft die Daten
+            mehrfach; rückblickend würde ich sie cachen und für die Performance
+            eine systemnähere Sprache wählen.
           </p>
           <div class="tags">
-            <span class="tag">Python</span><span class="tag">CLI</span>
-            <span class="tag">Dateisystem</span>
+            <span class="tag">Python</span><span class="tag" data-en="GUI / Desktop">GUI / Desktop</span>
+            <span class="tag" data-en="File System">Dateisystem</span>
           </div>
         </div>
       </article>
@@ -369,12 +355,12 @@
       <span class="rule"></span>
     </div>
     <div class="skill-grid">
-      <div class="skill"><div class="lab">Engines</div><div class="val">Godot (mehrjährig), Unity (in Einarbeitung)</div></div>
-      <div class="skill"><div class="lab">Sprachen</div><div class="val">C#, GDScript, Python, JavaScript</div></div>
-      <div class="skill"><div class="lab">Schwerpunkte</div><div class="val">Gameplay, Multiplayer/Netcode, Systemdesign, UI</div></div>
+      <div class="skill"><div class="lab" data-en="Engines">Engines</div><div class="val" data-en="Godot (several years), Unity (learning)">Godot (mehrjährig), Unity (in Einarbeitung)</div></div>
+      <div class="skill"><div class="lab" data-en="Languages">Sprachen</div><div class="val">C#, GDScript, Python, JavaScript</div></div>
+      <div class="skill"><div class="lab" data-en="Focus areas">Schwerpunkte</div><div class="val" data-en="Gameplay, multiplayer/netcode, system design, UI">Gameplay, Multiplayer/Netcode, Systemdesign, UI</div></div>
       <div class="skill"><div class="lab">Tools</div><div class="val">Git, VS Code, Linux, Epic Online Services</div></div>
-      <div class="skill"><div class="lab">Ausbildung</div><div class="val">Staatl. gepr. Informatiker Multimedia · Informatik (Dublin)</div></div>
-      <div class="skill"><div class="lab">Sprachen (nat.)</div><div class="val">Deutsch (Muttersprache), Englisch (C1)</div></div>
+      <div class="skill"><div class="lab" data-en="Education">Ausbildung</div><div class="val" data-en="State-certified IT Specialist (Multimedia) · Computing (Dublin)">Staatl. gepr. Informatiker Multimedia · Informatik (Dublin)</div></div>
+      <div class="skill"><div class="lab" data-en="Spoken languages">Sprachen (nat.)</div><div class="val" data-en="German (native), English (C1)">Deutsch (Muttersprache), Englisch (C1)</div></div>
     </div>
   </section>
 
@@ -382,12 +368,27 @@
   <footer>
     <div class="name">Lucas Schalz</div>
     <div class="foot-links">
-      <!-- TODO: GitHub-Link eintragen -->
-      <a href="mailto:luc.schalz@gmail.com">E-Mail</a>
-      <a href="https://github.com/DEINNAME" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:luc.schalz@gmail.com" data-en="Email">E-Mail</a>
+      <a href="https://github.com/N2Devil" target="_blank" rel="noopener">GitHub</a>
     </div>
   </footer>
 
 </div>
+
+<script>
+  function setLang(lang){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-en]').forEach(function(el){
+      if(!el.dataset.de) el.dataset.de = el.textContent;
+      el.textContent = (lang === 'en') ? el.dataset.en : el.dataset.de;
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+  }
+  // Default to browser language (English browsers start in EN, otherwise German)
+  var initial = (navigator.language || 'de').toLowerCase().indexOf('en') === 0 ? 'en' : 'de';
+  setLang(initial);
+</script>
 </body>
 </html>
