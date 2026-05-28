@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lucas Schalz — Game Developer</title>
 
+/* ---------- Style Sheet ---------- */
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -35,16 +36,12 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
 
   /* ---------- LANGUAGE TOGGLE ---------- */
-  .langbar{
-    position:fixed;top:18px;right:18px;z-index:50;display:flex;gap:2px;
+  .langbar{position:fixed;top:18px;right:18px;z-index:50;display:flex;gap:2px;
     background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:3px;
-    font-family:"JetBrains Mono",monospace;
-  }
-  .lang-btn{
-    cursor:pointer;border:0;background:transparent;color:var(--muted);
+    font-family:"JetBrains Mono",monospace}
+  .lang-btn{cursor:pointer;border:0;background:transparent;color:var(--muted);
     font-family:inherit;font-size:.78rem;font-weight:700;letter-spacing:.05em;
-    padding:6px 11px;border-radius:6px;transition:.15s ease;
-  }
+    padding:6px 11px;border-radius:6px;transition:.15s ease}
   .lang-btn:hover{color:var(--text)}
   .lang-btn.active{background:var(--accent);color:#1a1205}
 
@@ -83,13 +80,6 @@
     display:grid;grid-template-columns:1.15fr 1fr;transition:.22s ease}
   .card:hover{border-color:#3a3a46;transform:translateY(-3px);
     box-shadow:0 22px 50px -28px rgba(0,0,0,.8)}
-  .media{position:relative;background:#000;min-height:280px;aspect-ratio:16/10}
-  .media video,.media img{width:100%;height:100%;object-fit:cover;display:block}
-  .media .ph{position:absolute;inset:0;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:10px;text-align:center;
-    background:repeating-linear-gradient(45deg,#101015,#101015 12px,#15151b 12px,#15151b 24px);
-    color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.8rem;padding:20px}
-  .media .ph b{color:var(--accent);font-weight:700}
   .card-body{padding:30px 30px 32px;display:flex;flex-direction:column}
   .status{align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:.68rem;
     letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
@@ -102,7 +92,33 @@
   .tag{font-family:"JetBrains Mono",monospace;font-size:.74rem;color:var(--accent);
     background:rgba(255,176,46,.08);border:1px solid rgba(255,176,46,.22);
     border-radius:7px;padding:5px 10px}
-  .media.portrait video,.media.portrait img{object-fit:contain;background:#000}
+
+  /* ---------- STEAM-STYLE GALLERY ---------- */
+  .gallery{background:#000;display:flex;flex-direction:column;min-height:0}
+  .stage{position:relative;aspect-ratio:16/10;background:#0c0c10;overflow:hidden}
+  .alt .stage{aspect-ratio:16/9}
+  .stage video,.stage img{position:relative;z-index:1;width:100%;height:100%;
+    object-fit:cover;display:block}
+  .stage.portrait video,.stage.portrait img{object-fit:contain}
+  .stage-ph{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:8px;text-align:center;padding:18px;
+    background:repeating-linear-gradient(45deg,#101015,#101015 12px,#15151b 12px,#15151b 24px);
+    color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:.78rem}
+  .stage-ph b{color:var(--accent);font-weight:700}
+  .navarr{position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+    width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;line-height:1;
+    background:rgba(0,0,0,.55);color:#fff;font-size:1.4rem;
+    display:flex;align-items:center;justify-content:center;transition:.15s}
+  .navarr:hover{background:var(--accent);color:#1a1205}
+  .navarr.prev{left:10px}.navarr.next{right:10px}
+  .thumbs{display:flex;gap:6px;padding:8px;background:#0b0b0e;overflow-x:auto}
+  .thumb{flex:0 0 auto;width:66px;height:42px;border:2px solid transparent;border-radius:5px;
+    overflow:hidden;cursor:pointer;opacity:.55;transition:.15s;background:#15151b;position:relative}
+  .thumb:hover{opacity:.85}
+  .thumb.active{border-color:var(--accent);opacity:1}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .thumb .tph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted)}
 
   /* ---------- SECONDARY (NON-GAME) PROJECTS ---------- */
   .alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -111,7 +127,6 @@
     display:flex;flex-direction:column}
   .alt:hover{border-color:#3a3a46;transform:translateY(-3px);
     box-shadow:0 22px 50px -28px rgba(0,0,0,.8)}
-  .alt .media{min-height:190px;aspect-ratio:16/9}
   .alt .alt-body{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
   .alt h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.3rem}
   .alt .genre{color:var(--muted);font-size:.9rem;margin:2px 0 14px}
@@ -148,12 +163,11 @@
     .card-body{padding:24px}
     .langbar{top:12px;right:12px}
   }
-  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+  @media(prefers-reduced-motion:reduce){.card,.kicker,h1,.lede,.meta{animation:none!important;opacity:1!important}}
 </style>
 </head>
 <body>
 
-<!-- ================= LANGUAGE TOGGLE ================= -->
 <div class="langbar">
   <button class="lang-btn" data-lang="de" onclick="setLang('de')">DE</button>
   <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
@@ -171,7 +185,6 @@
       eigenständig, pragmatisch und mit Fokus auf das Spielgefühl.
     </p>
     <div class="meta">
-      <!-- TODO: DEINNAME ist schon N2Devil -->
       <a class="btn solid" href="#projekte" data-en="View projects ↓">Projekte ansehen ↓</a>
       <a class="btn" href="https://github.com/N2Devil" target="_blank" rel="noopener">GitHub ↗</a>
       <a class="btn" href="mailto:luc.schalz@gmail.com">luc.schalz@gmail.com</a>
@@ -188,14 +201,8 @@
 
     <div class="projects">
 
-      <!-- ---------- RESET ARENA ---------- -->
       <article class="card">
-        <div class="media">
-          <video autoplay muted loop playsinline poster="media/reset-arena.png">
-            <source src="media/reset-arena.mp4" type="video/mp4">
-          </video>
-          <div class="ph">Clip hier einsetzen<br><b>media/reset-arena.mp4</b></div>
-        </div>
+        <div class="gallery" data-key="reset-arena"></div>
         <div class="card-body">
           <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Reset Arena</h3>
@@ -212,14 +219,8 @@
         </div>
       </article>
 
-      <!-- ---------- CELL SHOT ---------- -->
       <article class="card">
-        <div class="media">
-          <video autoplay muted loop playsinline poster="media/cell-shot.png">
-            <source src="media/cell-shot.mp4" type="video/mp4">
-          </video>
-          <div class="ph">Clip hier einsetzen<br><b>media/cell-shot.mp4</b></div>
-        </div>
+        <div class="gallery" data-key="cell-shot"></div>
         <div class="card-body">
           <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Cell Shot</h3>
@@ -236,14 +237,8 @@
         </div>
       </article>
 
-      <!-- ---------- ASTRO BASE ---------- -->
       <article class="card">
-        <div class="media">
-          <video autoplay muted loop playsinline poster="media/astro-base.png">
-            <source src="media/astro-base.mp4" type="video/mp4">
-          </video>
-          <div class="ph">Clip hier einsetzen<br><b>media/astro-base.mp4</b></div>
-        </div>
+        <div class="gallery" data-key="astro-base"></div>
         <div class="card-body">
           <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Astro Base</h3>
@@ -260,14 +255,8 @@
         </div>
       </article>
 
-      <!-- ---------- STICKY CLIMBER ---------- -->
       <article class="card">
-        <div class="media portrait">
-          <video autoplay muted loop playsinline poster="media/sticky-climber.png">
-            <source src="media/sticky-climber.mp4" type="video/mp4">
-          </video>
-          <div class="ph">Clip hier einsetzen<br><b>media/sticky-climber.mp4</b></div>
-        </div>
+        <div class="gallery" data-key="sticky-climber"></div>
         <div class="card-body">
           <span class="status" data-en="In development">In Entwicklung</span>
           <h3>Sticky Climber</h3>
@@ -276,7 +265,6 @@
             Mobiles Arcade-Spiel mit Fokus auf griffige Touch-Steuerung und
             kurze, fordernde Runs. Entwicklung für ein weiteres Zielsystem –
             vom Eingabekonzept bis zur Performance auf dem Gerät.
-            <!-- TODO: Engine pruefen (Godot?) -->
           </p>
           <div class="tags">
             <span class="tag">Godot</span><span class="tag">Mobile</span>
@@ -298,12 +286,8 @@
 
     <div class="alt-grid">
 
-      <!-- ---------- EMERALD ---------- -->
       <article class="alt">
-        <div class="media">
-          <!-- Screenshot einsetzen: <img src="media/emerald.png" alt="Emerald"> -->
-          <div class="ph">Screenshot einsetzen<br><b>media/emerald.png</b></div>
-        </div>
+        <div class="gallery" data-key="emerald"></div>
         <div class="alt-body">
           <span class="status" data-en="Personal project">Eigenprojekt</span>
           <h3>Emerald</h3>
@@ -320,12 +304,8 @@
         </div>
       </article>
 
-      <!-- ---------- DISKDRIVESEARCH ---------- -->
       <article class="alt">
-        <div class="media">
-          <!-- Screenshot einsetzen: <img src="media/diskdrivesearch.png" alt="DiskDriveSearch"> -->
-          <div class="ph">Screenshot einsetzen<br><b>media/diskdrivesearch.png</b></div>
-        </div>
+        <div class="gallery" data-key="diskdrivesearch"></div>
         <div class="alt-body">
           <span class="status" data-en="Personal project">Eigenprojekt</span>
           <h3>DiskDriveSearch</h3>
@@ -364,7 +344,6 @@
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
   <footer>
     <div class="name">Lucas Schalz</div>
     <div class="foot-links">
@@ -376,17 +355,128 @@
 </div>
 
 <script>
+  /* ==========================================================
+     HIER SCREENSHOTS / VIDEOS EINTRAGEN
+     Pro Projekt beliebig viele Eintraege. Bilder und Videos
+     duerfen gemischt werden. Erstes Element = beim Laden sichtbar.
+     ========================================================== */
+  var GALLERIES = {
+    'reset-arena': [
+      {type:'video', src:'media/reset-arena.mp4', poster:'media/reset-arena.png'}
+      // ,{type:'image', src:'media/reset-arena-1.png'}
+      // ,{type:'image', src:'media/reset-arena-2.png'}
+    ],
+    'cell-shot': [
+      {type:'video', src:'media/cell-shot.mp4', poster:'media/cell-shot.png'}
+    ],
+    'astro-base': [
+      {type:'video', src:'media/astro-base.mp4', poster:'media/astro-base.png'}
+      // ,{type:'image', src:'media/astro-base-1.png'}
+    ],
+    'sticky-climber': [
+      {type:'video', src:'media/sticky-climber.mp4', poster:'media/sticky-climber.png', portrait:true}
+    ],
+    'emerald': [
+      {type:'image', src:'media/emerald.png'}
+    ],
+    'diskdrivesearch': [
+      {type:'image', src:'media/diskdrivesearch.png'}
+    ]
+  };
+
+  /* ---- Galerie-Renderer (musst du nicht anfassen) ---- */
+  function renderGallery(key, root){
+    var items = GALLERIES[key] || [];
+    if(!items.length) return;
+    var idx = 0;
+    var stage = document.createElement('div'); stage.className = 'stage';
+    var thumbs = document.createElement('div'); thumbs.className = 'thumbs';
+
+    function show(i){
+      idx = (i + items.length) % items.length;
+      var it = items[idx];
+      stage.innerHTML = '';
+      stage.classList.toggle('portrait', !!it.portrait);
+
+      var ph = document.createElement('div'); ph.className = 'stage-ph';
+      ph.innerHTML = 'Datei einsetzen<br><b>' + it.src + '</b>';
+      stage.appendChild(ph);
+
+      var m;
+      if(it.type === 'video'){
+        m = document.createElement('video');
+        m.autoplay = true; m.muted = true; m.loop = true; m.playsInline = true;
+        m.setAttribute('playsinline',''); m.setAttribute('muted','');
+        if(it.poster) m.poster = it.poster;
+        var s = document.createElement('source'); s.src = it.src; s.type = 'video/mp4';
+        m.appendChild(s);
+        m.addEventListener('error', function(){ m.style.display = 'none'; });
+      } else {
+        m = document.createElement('img'); m.src = it.src; m.alt = '';
+        m.onerror = function(){ m.style.display = 'none'; };
+      }
+      stage.appendChild(m);
+
+      if(items.length > 1){
+        var p = document.createElement('button'); p.className = 'navarr prev';
+        p.innerHTML = '\u2039'; p.setAttribute('aria-label','prev');
+        p.onclick = function(){ show(idx - 1); };
+        var n = document.createElement('button'); n.className = 'navarr next';
+        n.innerHTML = '\u203A'; n.setAttribute('aria-label','next');
+        n.onclick = function(){ show(idx + 1); };
+        stage.appendChild(p); stage.appendChild(n);
+      }
+      var tcs = thumbs.children;
+      for(var j = 0; j < tcs.length; j++){
+        tcs[j].classList.toggle('active', j === idx);
+      }
+    }
+
+    if(items.length > 1){
+      items.forEach(function(it, j){
+        var t = document.createElement('div'); t.className = 'thumb';
+        t.onclick = function(){ show(j); };
+        var tsrc = it.type === 'video' ? (it.poster || '') : it.src;
+        if(tsrc){
+          var ti = document.createElement('img'); ti.src = tsrc; ti.alt = '';
+          ti.onerror = function(){
+            ti.remove();
+            var lbl = document.createElement('div'); lbl.className = 'tph';
+            lbl.textContent = (j + 1); t.appendChild(lbl);
+          };
+          t.appendChild(ti);
+        } else {
+          var lbl = document.createElement('div'); lbl.className = 'tph';
+          lbl.textContent = (j + 1); t.appendChild(lbl);
+        }
+        thumbs.appendChild(t);
+      });
+    }
+
+    root.appendChild(stage);
+    if(items.length > 1) root.appendChild(thumbs);
+    show(0);
+  }
+
+  var galls = document.querySelectorAll('.gallery');
+  for(var g = 0; g < galls.length; g++){
+    renderGallery(galls[g].dataset.key, galls[g]);
+  }
+
+  /* ---- Sprachumschalter ---- */
   function setLang(lang){
     document.documentElement.lang = lang;
-    document.querySelectorAll('[data-en]').forEach(function(el){
+    var nodes = document.querySelectorAll('[data-en]');
+    for(var i = 0; i < nodes.length; i++){
+      var el = nodes[i];
       if(!el.dataset.de) el.dataset.de = el.textContent;
       el.textContent = (lang === 'en') ? el.dataset.en : el.dataset.de;
-    });
-    document.querySelectorAll('.lang-btn').forEach(function(b){
-      b.classList.toggle('active', b.dataset.lang === lang);
-    });
+    }
+    var btns = document.querySelectorAll('.lang-btn');
+    for(var k = 0; k < btns.length; k++){
+      btns[k].classList.toggle('active', btns[k].dataset.lang === lang);
+    }
   }
-  // Default to browser language (English browsers start in EN, otherwise German)
   var initial = (navigator.language || 'de').toLowerCase().indexOf('en') === 0 ? 'en' : 'de';
   setLang(initial);
 </script>
