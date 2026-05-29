@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lucas Schalz — Game Developer</title>
 
- 
-<!-- ---------- STYLE SHEET ---------- -->
- <link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- STYLE SHEET -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
@@ -96,7 +96,7 @@
 
   /* ---------- STEAM-STYLE GALLERY ---------- */
   .gallery{background:#000;display:flex;flex-direction:column;min-height:0}
-  .stage{position:relative;aspect-ratio:16/10;background:#0c0c10;overflow:hidden}
+  .stage{position:relative;aspect-ratio:16/10;background:#0c0c10;overflow:hidden;cursor:zoom-in}
   .alt .stage{aspect-ratio:16/9}
   .stage video,.stage img{position:relative;z-index:1;width:100%;height:100%;
     object-fit:cover;display:block}
@@ -120,6 +120,36 @@
   .thumb img{width:100%;height:100%;object-fit:cover}
   .thumb .tph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted)}
+
+  /* ---------- FULLSCREEN BUTTON & LIGHTBOX ---------- */
+  .fs-btn{position:absolute;top:10px;right:10px;z-index:4;
+    width:34px;height:34px;border:0;border-radius:6px;cursor:pointer;
+    background:rgba(0,0,0,.55);color:#fff;
+    display:flex;align-items:center;justify-content:center;transition:.15s}
+  .fs-btn:hover{background:var(--accent);color:#1a1205}
+  .fs-btn svg{width:16px;height:16px;display:block}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.94);
+    display:none;align-items:center;justify-content:center;padding:60px;cursor:zoom-out}
+  .lightbox.active{display:flex}
+  .lb-stage{max-width:100%;max-height:100%;display:flex;align-items:center;justify-content:center;cursor:default}
+  .lb-stage img,.lb-stage video{max-width:90vw;max-height:88vh;object-fit:contain;display:block}
+  .lb-close{position:absolute;top:18px;right:18px;width:44px;height:44px;
+    border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;
+    font-size:1.6rem;line-height:1;cursor:pointer;transition:.15s}
+  .lb-close:hover{background:var(--accent);color:#1a1205}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);
+    width:50px;height:50px;border:0;border-radius:50%;cursor:pointer;
+    background:rgba(255,255,255,.1);color:#fff;font-size:2rem;line-height:1;transition:.15s;
+    display:flex;align-items:center;justify-content:center}
+  .lb-nav:hover{background:var(--accent);color:#1a1205}
+  .lb-nav.prev{left:24px}.lb-nav.next{right:24px}
+  .lb-counter{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+    color:rgba(255,255,255,.6);font-family:"JetBrains Mono",monospace;font-size:.82rem}
+  @media(max-width:760px){
+    .lb-nav{width:40px;height:40px;font-size:1.5rem}
+    .lb-nav.prev{left:8px}.lb-nav.next{right:8px}
+    .lightbox{padding:20px}
+  }
 
   /* ---------- SECONDARY (NON-GAME) PROJECTS ---------- */
   .alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -368,9 +398,11 @@
       {type:'image', src:'media/reset-arena-1.png'},
       {type:'image', src:'media/reset-arena-2.png'},
       {type:'image', src:'media/reset-arena-3.png'},
-      {type:'image', src:'media/reset-arena-4.png'},
+      {type:'image', src:'media/reset-arena-4.png'}
+      {type:'image', src:'media/reset-arena-5.png'},
       {type:'image', src:'media/reset-arena-6.png'},
-      {type:'image', src:'media/reset-arena-7.png'}
+      {type:'image', src:'media/reset-arena-7.png'},
+      
     ],
     'cell-shot': [
       {type:'image', src:'media/cell-shot-1.png'},
@@ -407,6 +439,72 @@
     ]
   };
 
+  /* ---- Lightbox (Vollbild-Modus) ---- */
+  var LB = (function(){
+    var el = document.createElement('div'); el.className = 'lightbox';
+    el.innerHTML =
+      '<button class="lb-close" aria-label="close">\u00D7</button>' +
+      '<button class="lb-nav prev" aria-label="prev">\u2039</button>' +
+      '<div class="lb-stage"></div>' +
+      '<button class="lb-nav next" aria-label="next">\u203A</button>' +
+      '<div class="lb-counter"></div>';
+    document.body.appendChild(el);
+    var lbStage = el.querySelector('.lb-stage');
+    var btnClose = el.querySelector('.lb-close');
+    var btnPrev = el.querySelector('.lb-nav.prev');
+    var btnNext = el.querySelector('.lb-nav.next');
+    var counter = el.querySelector('.lb-counter');
+    var items = [], idx = 0;
+
+    function render(){
+      lbStage.innerHTML = '';
+      var it = items[idx]; if(!it) return;
+      var m;
+      if(it.type === 'video'){
+        m = document.createElement('video');
+        m.src = it.src; m.controls = true; m.autoplay = true; m.loop = true;
+        m.setAttribute('playsinline','');
+      } else {
+        m = document.createElement('img'); m.src = it.src; m.alt = '';
+      }
+      lbStage.appendChild(m);
+      var multi = items.length > 1;
+      btnPrev.style.display = multi ? 'flex' : 'none';
+      btnNext.style.display = multi ? 'flex' : 'none';
+      counter.textContent = multi ? (idx + 1) + ' / ' + items.length : '';
+    }
+    function open(itms, i){
+      items = itms; idx = i || 0;
+      el.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      render();
+    }
+    function close(){
+      el.classList.remove('active');
+      document.body.style.overflow = '';
+      lbStage.innerHTML = ''; // stoppt ggf. laufendes Video
+    }
+    function next(){ idx = (idx + 1) % items.length; render(); }
+    function prev(){ idx = (idx - 1 + items.length) % items.length; render(); }
+
+    btnClose.onclick = function(e){ e.stopPropagation(); close(); };
+    btnPrev.onclick = function(e){ e.stopPropagation(); prev(); };
+    btnNext.onclick = function(e){ e.stopPropagation(); next(); };
+    // Klick auf den dunklen Hintergrund schliesst, Klick auf das Bild nicht
+    el.addEventListener('click', function(e){
+      if(e.target === el) close();
+    });
+    lbStage.addEventListener('click', function(e){ e.stopPropagation(); });
+    document.addEventListener('keydown', function(e){
+      if(!el.classList.contains('active')) return;
+      if(e.key === 'Escape') close();
+      else if(e.key === 'ArrowRight' && items.length > 1) next();
+      else if(e.key === 'ArrowLeft' && items.length > 1) prev();
+    });
+
+    return { open: open };
+  })();
+
   /* ---- Galerie-Renderer (musst du nicht anfassen) ---- */
   function renderGallery(key, root){
     var items = GALLERIES[key] || [];
@@ -440,13 +538,20 @@
       }
       stage.appendChild(m);
 
+      // Vollbild-Knopf (oben rechts, Stretch-Symbol)
+      var fs = document.createElement('button');
+      fs.className = 'fs-btn'; fs.setAttribute('aria-label','fullscreen');
+      fs.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+      fs.onclick = function(e){ e.stopPropagation(); LB.open(items, idx); };
+      stage.appendChild(fs);
+
       if(items.length > 1){
         var p = document.createElement('button'); p.className = 'navarr prev';
         p.innerHTML = '\u2039'; p.setAttribute('aria-label','prev');
-        p.onclick = function(){ show(idx - 1); };
+        p.onclick = function(e){ e.stopPropagation(); show(idx - 1); };
         var n = document.createElement('button'); n.className = 'navarr next';
         n.innerHTML = '\u203A'; n.setAttribute('aria-label','next');
-        n.onclick = function(){ show(idx + 1); };
+        n.onclick = function(e){ e.stopPropagation(); show(idx + 1); };
         stage.appendChild(p); stage.appendChild(n);
       }
       var tcs = thumbs.children;
@@ -454,6 +559,9 @@
         tcs[j].classList.toggle('active', j === idx);
       }
     }
+
+    // Doppelklick auf das Hauptbild oeffnet Vollbild
+    stage.addEventListener('dblclick', function(){ LB.open(items, idx); });
 
     if(items.length > 1){
       items.forEach(function(it, j){
